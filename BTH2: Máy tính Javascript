@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        .calc-wrapper {
+            width: 260px; margin: 40px auto;
+            padding: 15px; border-radius: 8px;
+            background: #f9f9f9; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        #display {
+            background: #fff; height: 50px; text-align: right;
+            padding: 10px; font-size: 24px; border: 1px solid #ddd;
+            margin-bottom: 15px; border-radius: 4px; overflow: hidden;
+            box-sizing: border-box;
+        }
+        .btn-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;
+        }
+        button {
+            padding: 15px 0; font-size: 18px; cursor: pointer;
+            border: 1px solid #ddd; border-radius: 4px; background: #fff;
+        }
+        button:hover { background: #eee; }
+        .operator { background: #e9ecef; font-weight: bold; }
+        .clear { grid-column: span 4; background: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <div class="calc-wrapper">
+        <div id="display">0</div>
+        <div class="btn-grid">
+            <button>7</button><button>8</button><button>9</button><button class="operator">/</button>
+            <button>4</button><button>5</button><button>6</button><button class="operator">*</button>
+            <button>1</button><button>2</button><button>3</button><button class="operator">-</button>
+            <button>0</button><button>.</button><button class="operator">=</button><button class="operator">+</button>
+            <button class="clear">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        const buttons = document.querySelectorAll('button');
+        const operators = ['+', '-', '*', '/']; 
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const val = e.target.innerText;
+                let current = display.innerText;
+
+                if (val === 'Clear') {
+                    display.innerText = '0';
+                    return;
+                }
+
+                if (val === '=') {
+                    try {
+                        const lastChar = current.slice(-1);
+                        if (operators.includes(lastChar)) {
+                            alert("Biểu thức chưa hoàn chỉnh!");
+                            return;
+                        }
+                        display.innerText = eval(current);
+                    } catch (error) {
+                        display.innerText = 'Lỗi';
+                    }
+                    return;
+                }
+
+                if (current === '0' || current === 'Lỗi') {
+                    if (operators.includes(val) && val !== '-') return;
+                    display.innerText = val;
+                } else {
+                    const lastChar = current.slice(-1);
+                    if (operators.includes(lastChar) && operators.includes(val)) {
+                        display.innerText = current.slice(0, -1) + val;
+                    } else {
+                        display.innerText += val;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
