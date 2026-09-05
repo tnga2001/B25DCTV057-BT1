@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang cá nhân</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0; padding: 20px;
+        }
+        header, nav, main, footer {
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .dark-mode {
+            background-color: #222;
+            color: #f4f4f4;
+        }
+        .dark-mode header, .dark-mode nav, .dark-mode main, .dark-mode footer {
+            border-bottom: 1px solid #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Trang Giới Thiệu</h1>
+    </header>
+    <nav>
+        <a href="#">Trang chủ</a> | <a href="#">Dự án</a>
+    </nav>
+    <main>
+        <h2 id="greeting"></h2>
+        <p>Đây là trang web cá nhân luyện tập thao tác DOM.</p>
+        <button id="toggleThemeBtn">Đổi màu nền</button>
+    </main>
+    <footer>
+        <p>&copy; 2026 Bản quyền thuộc về tôi.</p>
+    </footer>
+
+    <script>
+        const greetingEl = document.getElementById('greeting');
+        const btnToggle = document.getElementById('toggleThemeBtn');
+
+        const hour = new Date().getHours();
+        let msg = "Chào buổi tối!"; // Gán mặc định
+        
+        if (hour >= 5 && hour < 12) msg = "Chào buổi sáng!";
+        else if (hour >= 12 && hour < 18) msg = "Chào buổi chiều!";
+        
+        greetingEl.innerText = msg;
+
+        btnToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
